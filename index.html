@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Assignment</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$.get('https://api.500px.com/v1/photos.json?feature=popular&_method=get&consumer_key=UwYxXKmkEzRIhK4EykqRRlItxrdij6eo0Igwz3Wc', function(data) {
+					console.log(data);
+					var html = '';
+					$.each(data.photos, function(key, photo) {
+						var img = '';
+						var div = '';
+						var p = '';
+						img += '<img src="';
+						img += photo.image_url;
+						img += '"/>';
+						p += '<p>';
+						p += photo.name || 'Untitled';
+						p += '</p>';
+						div += '<div>';
+						div += img + p;
+						div += '</div>';
+						html += div;
+					});
+					$('.f00px').html(html);
+				});
+			});
+		</script>
+		<style>
+			html, body {
+				background: #222;
+				font-family: sans-serif;
+				margin: 0;
+				padding: 0;
+			}
+			.f00px {
+				padding: 10px;
+			}
+			.f00px div {
+				float: left;
+				height: 140px;
+				margin: 10px;
+				overflow: hidden;
+				position: relative;
+				width: 140px;
+			}
+			.f00px img {
+				border-radius: 2px;
+			}
+			.f00px p {
+				background: rgba(255, 255, 255, .2);
+				bottom: -40px;
+				height: 20px;
+				line-height: 20px;
+				margin: 0;
+				overflow: hidden;
+				padding: 10px;
+				position: absolute;
+				text-overflow: ellipsis;
+				transition: bottom .5s;
+				white-space: nowrap;
+				width: 120px;
+			}
+			.f00px div:hover p {
+				bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="f00px"></div>
+	</body>
+</html>
+
